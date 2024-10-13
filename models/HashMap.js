@@ -2,15 +2,15 @@ const LinkedList = require("./LinkedList");
 
 module.exports = class HashMap {
   buckets = [];
-  #bucketsSize = 16;
+  #capacity = 16;
+  #loadFactor = 0.8;
 
   hash(key) {
     let hashCode = 0;
 
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode =
-        (primeNumber * hashCode + key.charCodeAt(i)) % this.#bucketsSize;
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.#capacity;
     }
 
     return hashCode;
@@ -34,6 +34,12 @@ module.exports = class HashMap {
 
       this.#getBucket(key).append(storedValue);
     }
+
+    if (this.#getThreshold() < this.length()) this.#doubledCapacity();
+  }
+
+  getCapacity() {
+    return this.#capacity;
   }
 
   get(key) {
@@ -53,6 +59,9 @@ module.exports = class HashMap {
 
     if (index >= 0) {
       this.#getBucket(key).removeAt(index);
+
+      if (this.#getThreshold() / 2 > this.length()) this.#halvedCapacity();
+
       return true;
     }
 
@@ -129,7 +138,7 @@ module.exports = class HashMap {
   }
 
   #isIndexOutOfBound(index) {
-    if (index < 0 || index >= this.#bucketsSize) {
+    if (index < 0 || index >= this.#capacity) {
       throw new Error("Trying to access index out of bound");
     }
   }
@@ -154,5 +163,29 @@ module.exports = class HashMap {
 
   #isBucketEmpty(key) {
     return !this.#getBucket(key);
+  }
+
+  #getThreshold() {
+    return this.#loadFactor * this.#capacity;
+  }
+
+  #doubledCapacity() {
+    const entries = this.entries();
+    this.#capacity *= 2;
+    this.clear();
+
+    entries.forEach((entry) => {
+      this.set(entry[0], entry[1]);
+    });
+  }
+
+  #halvedCapacity() {
+    const entries = this.entries();
+    this.#capacity /= 2;
+    this.clear();
+
+    entries.forEach((entry) => {
+      this.set(entry[0], entry[1]);
+    });
   }
 };

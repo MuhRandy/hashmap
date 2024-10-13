@@ -56,7 +56,19 @@ console.log("get items key:", hashmap.keys());
 console.log("get items value:", hashmap.values());
 console.log("get items entry:", hashmap.entries());
 
+hashmap.set("new first", "value of new first");
+hashmap.set("new second", "value of new second");
+hashmap.set("new third", "value of new third");
+
 console.log("\n");
 
-hashmap.clear();
-console.log("hashmap after clear", hashmap);
+console.log("capacity:", hashmap.getCapacity());
+console.log("length", hashmap.length());
+console.log(util.inspect(hashmap, { depth: null }));
+
+console.log("\n");
+
+hashmap.remove("new second");
+console.log("capacity:", hashmap.getCapacity());
+console.log("length", hashmap.length());
+console.log(util.inspect(hashmap, { depth: null }));
