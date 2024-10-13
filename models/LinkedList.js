@@ -60,10 +60,7 @@ module.exports = class LinkedList {
 
   find(value, list = this.list) {
     let index = 0;
-    if (
-      list === null ||
-      index + this.find(value, list.nextNode) === this.size() - 1
-    )
+    if (list === null || (list.nextNode === null && list.value !== value))
       return null;
     if (list.value === value) return index;
     index++;
