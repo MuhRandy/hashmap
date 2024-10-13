@@ -8,10 +8,10 @@ const hashed2 = hashmap.hash("cingKu");
 const hashed3 = hashmap.hash("Babi");
 const hashed4 = hashmap.hash("BaBi");
 
-console.log(hashed1);
-console.log(hashed2);
-console.log(hashed3);
-console.log(hashed4);
+// console.log(hashed1);
+// console.log(hashed2);
+// console.log(hashed3);
+// console.log(hashed4);
 
 // 12
 hashmap.set("apple", "red");
@@ -19,6 +19,7 @@ hashmap.set("banana", "yellow");
 hashmap.set("carrot", "orange");
 hashmap.set("dog", "brown");
 hashmap.set("elephant", "gray");
+hashmap.set("elephant", "black");
 hashmap.set("frog", "green");
 hashmap.set("grape", "purple");
 hashmap.set("hat", "black");
@@ -28,6 +29,7 @@ hashmap.set("kite", "pink");
 hashmap.set("lion", "golden");
 
 console.log(util.inspect(hashmap, { depth: null }));
+console.log(hashmap.length());
 
 console.log(hashmap.get("dog"));
 console.log(hashmap.get("zebra"));
@@ -38,3 +40,10 @@ console.log(hashmap.remove("zebra"));
 console.log(hashmap.remove("dog"));
 
 console.log(util.inspect(hashmap, { depth: null }));
+console.log(hashmap.length());
+
+// hashmap.clear();
+
+console.log(hashmap.keys());
+console.log(hashmap.values());
+console.log(hashmap.entries());

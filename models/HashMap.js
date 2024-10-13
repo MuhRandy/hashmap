@@ -19,10 +19,18 @@ module.exports = class HashMap {
       key,
       value,
     };
+
     if (!this.buckets[this.hash(key)]) {
       this.buckets[this.hash(key)] = new LinkedList();
       this.buckets[this.hash(key)].append(storedValue);
-    } else this.buckets[this.hash(key)].append(storedValue);
+    } else {
+      const bucket = this.buckets[this.hash(key)].list;
+      const index = this.#find(key, bucket);
+
+      if (index >= 0) this.remove(key);
+
+      this.buckets[this.hash(key)].append(storedValue);
+    }
   }
 
   get(key) {
@@ -46,6 +54,61 @@ module.exports = class HashMap {
       this.buckets[this.hash(key)].removeAt(index);
       return true;
     }
+
+    return false;
+  }
+
+  length() {
+    let total = 0;
+    this.buckets.forEach((bucket) => {
+      if (bucket) total += bucket.size();
+    });
+
+    return total;
+  }
+
+  clear() {
+    this.buckets = [];
+  }
+
+  keys() {
+    const keys = [];
+    this.buckets.map((bucket) => {
+      if (bucket) {
+        for (let i = 0; i < bucket.size(); i++) {
+          keys.push(bucket.at(i).key);
+        }
+      }
+    });
+
+    return keys;
+  }
+
+  values() {
+    const values = [];
+    this.buckets.map((bucket) => {
+      if (bucket) {
+        for (let i = 0; i < bucket.size(); i++) {
+          values.push(bucket.at(i).value);
+        }
+      }
+    });
+
+    return values;
+  }
+
+  entries() {
+    const entries = [];
+
+    this.buckets.map((bucket) => {
+      if (bucket) {
+        for (let i = 0; i < bucket.size(); i++) {
+          entries.push([bucket.at(i).key, bucket.at(i).value]);
+        }
+      }
+    });
+
+    return entries;
   }
 
   #getValueInBucket(key, bucket) {
