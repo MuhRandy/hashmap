@@ -3,23 +3,11 @@ const util = require("util");
 
 const hashmap = new HashMap();
 
-const hashed1 = hashmap.hash("Kucing");
-const hashed2 = hashmap.hash("cingKu");
-const hashed3 = hashmap.hash("Babi");
-const hashed4 = hashmap.hash("BaBi");
-
-// console.log(hashed1);
-// console.log(hashed2);
-// console.log(hashed3);
-// console.log(hashed4);
-
-// 12
 hashmap.set("apple", "red");
 hashmap.set("banana", "yellow");
 hashmap.set("carrot", "orange");
 hashmap.set("dog", "brown");
 hashmap.set("elephant", "gray");
-hashmap.set("elephant", "black");
 hashmap.set("frog", "green");
 hashmap.set("grape", "purple");
 hashmap.set("hat", "black");
@@ -29,21 +17,46 @@ hashmap.set("kite", "pink");
 hashmap.set("lion", "golden");
 
 console.log(util.inspect(hashmap, { depth: null }));
-console.log(hashmap.length());
+console.log("length:", hashmap.length());
 
-console.log(hashmap.get("dog"));
-console.log(hashmap.get("zebra"));
-console.log(hashmap.get("hat"));
+console.log("\n");
 
-console.log(hashmap.remove("grape"));
-console.log(hashmap.remove("zebra"));
-console.log(hashmap.remove("dog"));
+console.log('get item with "grape" key:', hashmap.get("grape"));
+console.log('remove item with "grape" key:', hashmap.remove("grape"));
+console.log('get item with "grape" key:', hashmap.get("grape"));
 
+console.log("\n");
+
+console.log('get item with "zebra" key:', hashmap.get("zebra"));
+console.log('remove item with "zebra" key:', hashmap.remove("zebra"));
+
+console.log("\n");
+
+console.log('get item with "dog" key:', hashmap.get("dog"));
+console.log('remove item with "dog" key:', hashmap.remove("dog"));
+console.log('get item with "dog" key: ', hashmap.get("dog"));
+
+console.log("\n");
+
+console.log('get item with "elephant" key:', hashmap.get("elephant"));
+console.log(
+  'set value with already exist key "elephant"',
+  hashmap.set("elephant", "new one")
+);
+console.log('get item with "elephant" key:', hashmap.get("elephant"));
+
+console.log("\n");
+
+console.log("length:", hashmap.length());
 console.log(util.inspect(hashmap, { depth: null }));
-console.log(hashmap.length());
 
-// hashmap.clear();
+console.log("\n");
 
-console.log(hashmap.keys());
-console.log(hashmap.values());
-console.log(hashmap.entries());
+console.log("get items key:", hashmap.keys());
+console.log("get items value:", hashmap.values());
+console.log("get items entry:", hashmap.entries());
+
+console.log("\n");
+
+hashmap.clear();
+console.log("hashmap after clear", hashmap);
